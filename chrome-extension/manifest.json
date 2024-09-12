@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension Template",
-  "description": "A template for creating chrome extensions with CRXJS, Vite and TypeScript",
+  "name": "URL Tagger",
+  "description": "A plugin to tag urls",
   "version": "1.0.0",
-  "action": { "default_popup": "index.html" }
+  "action": { "default_popup": "index.html" },
+  "permissions": ["activeTab"]
 }

@@ -1,24 +1,40 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter'
+import "./style.css";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const tagElement = document.querySelector<HTMLDivElement>("#tag")!;
+const currUrlElement = document.querySelector<HTMLDivElement>("#curr-url")!;
+const generateTagButton =
+  document.querySelector<HTMLButtonElement>("#generate-tag")!;
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const tagDictionary = [
+  {
+    keyword: "google.com",
+    tag: "haha123",
+  },
+  {
+    keyword: "bing.com",
+    tag: "haha321",
+  },
+];
+
+const identifyTagFromUrl = (currUrl: string) => {
+  const tag = tagDictionary.find((entry) =>
+    currUrl.includes(entry.keyword),
+  )?.tag;
+  if (!tag) return "No tag found";
+  return tag;
+};
+
+const generateTag = () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    const currUrl = tabs[0].url;
+    if (!currUrl) {
+      currUrlElement.innerHTML = "No URL found";
+      tagElement.innerHTML = "No tag found";
+    } else {
+      currUrlElement.innerHTML = currUrl;
+      tagElement.innerHTML = identifyTagFromUrl(currUrl);
+    }
+  });
+};
+
+generateTagButton.addEventListener("click", generateTag);

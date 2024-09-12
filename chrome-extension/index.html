@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,17 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div>
+        <button id="generate-tag">Generate Tag</button>
+        <div class="row">
+          <span class="label">Current URL:</span> <span id="curr-url"></span>
+        </div>
+        <div class="row">
+          <span class="label">Tag:</span> <span id="tag"></span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
